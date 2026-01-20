@@ -1,0 +1,7 @@
+{
+    "message": {
+        "get": "Hello, world!",
+        "post": "The data has been updated"
+    }
+    
+}
