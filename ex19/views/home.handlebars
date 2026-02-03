@@ -1,0 +1,16 @@
+<div class="jumbotron bg-light p-5 rounded mb-4">
+    <h1 class="display-4">Welcome to News Website</h1>
+    <p class="lead">Stay updated with the latest news and articles from around the world.</p>
+</div>
+
+<h2 class="mb-4">Latest Articles</h2>
+
+{{#if articles}}
+    <div class="row">
+        {{#each articles}}
+            {{> article}}
+        {{/each}}
+    </div>
+{{else}}
+    <p>No articles available at the moment.</p>
+{{/if}}

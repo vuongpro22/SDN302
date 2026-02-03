@@ -1,0 +1,46 @@
+1.	Exercise 1: Set Up the Environment
+Objective: Create a basic Express application using Express-Handlebars as the templating engine.
+Instructions:
+•	Initialize a new Node.js project with npm init.
+•	Install the necessary packages (express and express-handlebars).
+•	Set up an Express server that renders a "Hello, World!" message using a Handlebars template.
+Hints:
+•	Use express to create the server.
+•	Configure Express-Handlebars as the view engine.
+•	Create a simple template with a title and a message.
+2.	Exercise 2: Create a News Layout
+Objective: Create a layout for a news website that includes a header, footer, and main content area.
+Instructions:
+•	Set up a layout file called main.handlebars with appropriate header, footer, and body placeholders.
+•	Create a sample view home.handlebars that uses this layout.
+•	Render a homepage with a title and a welcoming message.
+Hints:
+•	The layout should contain static elements like a navigation bar and footer.
+•	Use {{{body}}} to insert specific view content into the layout.
+3.	Exercise 3: Display News Articles
+Objective: Render a list of news articles on the homepage.
+Instructions:
+•	Create a list of articles, each with a title, author, and publication date.
+•	Render these articles on the homepage using a Handlebars view.
+•	Format the publication date using a Handlebars helper.
+Hints:
+•	Use {{#each}} to iterate through the list of articles.
+•	Register a helper function to format the date.
+4.	Exercise 4: Use Partials for Articles
+Objective: Use partials to represent each news article in the list.
+Instructions:
+•	Create a partial article.handlebars that displays a single article.
+•	Refactor the homepage view to use the article partial for each article.
+•	Test the application to ensure the articles are displayed correctly.
+Hints:
+•	Use {{> partial_name}} to include a partial in a view.
+•	The partial should display the article title, author, and formatted publication date.
+5.	Exercise 5: Individual Article Pages
+Objective: Create individual pages for each article using dynamic routing.
+Instructions:
+•	Set up a route /articles/:id to display individual articles.
+•	Use the same layout as the homepage for the article pages.
+•	Render the specific article based on its ID, passed as a URL parameter.
+Hints:
+•	Use req.params.id to capture the article ID from the URL.
+•	Display the article title, content, author, and publication date on the individual page.
