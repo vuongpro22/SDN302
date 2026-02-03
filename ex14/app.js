@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const articleRouter = require('./routes/articleRouter');
+const commentRouter = require('./routes/commentRouter');
 
 mongoose.set('strictQuery', true);
 
@@ -20,6 +21,9 @@ app.get('/', (req, res) => {
 
 // Mount article routes
 app.use('/articles', articleRouter);
+
+// Mount comment routes
+app.use('/comments', commentRouter);
 
 async function startServer() {
   try {

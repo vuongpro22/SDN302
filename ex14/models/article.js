@@ -25,18 +25,6 @@ const articleSchema = new Schema(
         message: 'Article text must be longer than 10 characters.',
       },
     },
-    comments: [
-      {
-        body: {
-          type: String,
-          required: [true, 'Comment body is required.'],
-        },
-        date: {
-          type: Date,
-          default: Date.now,
-        },
-      },
-    ],
     tags: {
       type: [String],
       validate: {
