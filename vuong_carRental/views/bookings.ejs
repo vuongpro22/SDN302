@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookings - Car Rental System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .nav {
+            background-color: #333;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 10px;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #333;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <h1>📋 Bookings Management</h1>
+    <div class="nav">
+        <a href="/">Home</a>
+        <a href="/cars">Cars</a>
+        <a href="/bookings">Bookings</a>
+    </div>
+    <div class="container">
+        <h2>All Bookings</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Car Number</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Total Amount</th>
+                </tr>
+            </thead>
+            <tbody id="bookingsTable">
+                <tr>
+                    <td colspan="5">Loading...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Fetch bookings from API
+        fetch('/api/bookings')
+            .then(response => response.json())
+            .then(bookings => {
+                const tableBody = document.getElementById('bookingsTable');
+                if (bookings.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="5">No bookings found</td></tr>';
+                } else {
+                    tableBody.innerHTML = bookings.map(booking => {
+                        const startDate = new Date(booking.startDate).toLocaleDateString();
+                        const endDate = new Date(booking.endDate).toLocaleDateString();
+                        return `
+                            <tr>
+                                <td>${booking.customerName}</td>
+                                <td>${booking.carNumber}</td>
+                                <td>${startDate}</td>
+                                <td>${endDate}</td>
+                                <td>${booking.totalAmount.toLocaleString()} VND</td>
+                            </tr>
+                        `;
+                    }).join('');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('bookingsTable').innerHTML = '<tr><td colspan="5">Error loading bookings</td></tr>';
+            });
+    </script>
+</body>
+</html>

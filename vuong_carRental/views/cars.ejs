@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cars - Car Rental System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .nav {
+            background-color: #333;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 10px;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #333;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .status-available { color: green; }
+        .status-rented { color: orange; }
+        .status-maintenance { color: red; }
+    </style>
+</head>
+<body>
+    <h1>🚗 Cars Management</h1>
+    <div class="nav">
+        <a href="/">Home</a>
+        <a href="/cars">Cars</a>
+        <a href="/bookings">Bookings</a>
+    </div>
+    <div class="container">
+        <h2>All Cars</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Car Number</th>
+                    <th>Capacity</th>
+                    <th>Status</th>
+                    <th>Price Per Day</th>
+                    <th>Features</th>
+                </tr>
+            </thead>
+            <tbody id="carsTable">
+                <tr>
+                    <td colspan="5">Loading...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Fetch cars from API
+        fetch('/api/cars')
+            .then(response => response.json())
+            .then(cars => {
+                const tableBody = document.getElementById('carsTable');
+                if (cars.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="5">No cars found</td></tr>';
+                } else {
+                    tableBody.innerHTML = cars.map(car => `
+                        <tr>
+                            <td>${car.carNumber}</td>
+                            <td>${car.capacity}</td>
+                            <td class="status-${car.status}">${car.status}</td>
+                            <td>${car.pricePerDay.toLocaleString()} VND</td>
+                            <td>${car.features.join(', ') || 'N/A'}</td>
+                        </tr>
+                    `).join('');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('carsTable').innerHTML = '<tr><td colspan="5">Error loading cars</td></tr>';
+            });
+    </script>
+</body>
+</html>
